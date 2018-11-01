@@ -1,0 +1,93 @@
+{% extends 'heritagesites/base.html' %}
+{% block content %}
+
+<!-- safe filter on for raw HTML stored in database -->
+
+<h2>{{country_area.country_area_name | safe}}</h2>
+
+{% if country_area.country_area_name %}
+  <div class="row">
+    <div class="col-sm-2">
+      <p>Name</p>
+    </div>
+    <div class="col-sm-10">
+      {{country_area.country_area_name | safe}}
+    </div>
+  </div>
+{% endif %}
+
+
+
+{% if country_area.m49_code%}
+  <div class="row">
+    <div class="col-sm-2">
+      <p>M49</p>
+    </div>
+    <div class="col-sm-10">
+      {{country_area.m49_code | safe}}
+    </div>
+  </div>
+{% endif %}
+
+
+{% if country_area.iso_alpha3_code %}
+  <div class="row">
+    <div class="col-sm-2">
+      <p>Alpha 3</p>
+    </div>
+    <div class="col-sm-10">
+      {{country_area.iso_alpha3_code | safe}}
+    </div>
+  </div>
+{% endif %}
+
+
+
+{% if region.region_name %}
+  <div class="row">
+    <div class="col-sm-2">
+      <p>Region</p>
+    </div>
+    <div class="col-sm-10">
+      {{region.region_name}}
+    </div>
+  </div>
+{% endif %}
+
+
+
+{% if sub_region.sub_region_name %}
+  <div class="row">
+    <div class="col-sm-2">
+      <p> Subregion</p>
+    </div>
+    <div class="col-sm-10">
+      {{sub_region.sub_region_names}}
+    </div>
+  </div>
+{% endif %}
+
+
+{% if intermediate_region.intermediate_region_name %}
+  <div class="row">
+    <div class="col-sm-2">
+      <p> Intermediate Region</p>
+    </div>
+    <div class="col-sm-10">
+      {{intermediate_region.intermediate_region_name}}
+    </div>
+  </div>
+{% endif %}
+
+
+{% if dev_status.dev_status_name %}
+  <div class="row">
+    <div class="col-sm-2">
+      <p> Dev Status</p>
+    </div>
+    <div class="col-sm-10">
+      {{dev_status.dev_status_name}}
+    </div>
+  </div>
+{% endif %}
+{% endblock content %}}
