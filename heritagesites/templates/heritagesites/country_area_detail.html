@@ -1,93 +1,98 @@
 {% extends 'heritagesites/base.html' %}
 {% block content %}
+{% if user.is_authenticated %}
 
 <!-- safe filter on for raw HTML stored in database -->
 
-<h2>{{country_area.country_area_name | safe}}</h2>
+<h2>{{country.country_area_name | safe}}</h2>
 
-{% if country_area.country_area_name %}
+{% if country.country_area_name %}
   <div class="row">
     <div class="col-sm-2">
-      <p>Name</p>
+      <p>Country Name</p>
     </div>
     <div class="col-sm-10">
-      {{country_area.country_area_name | safe}}
+      {{country.country_area_name | safe}}
     </div>
   </div>
 {% endif %}
 
 
 
-{% if country_area.m49_code%}
+{% if country.m49_code%}
   <div class="row">
     <div class="col-sm-2">
-      <p>M49</p>
+      <p>M49 Code</p>
     </div>
     <div class="col-sm-10">
-      {{country_area.m49_code | safe}}
+      {{country.m49_code | safe}}
     </div>
   </div>
 {% endif %}
 
 
-{% if country_area.iso_alpha3_code %}
+{% if country.iso_alpha3_code %}
   <div class="row">
     <div class="col-sm-2">
-      <p>Alpha 3</p>
+      <p>Alpha 3 Code</p>
     </div>
     <div class="col-sm-10">
-      {{country_area.iso_alpha3_code | safe}}
+      {{country.iso_alpha3_code | safe}}
     </div>
   </div>
 {% endif %}
 
 
 
-{% if region.region_name %}
+{% if country.location.region.region_name %}
   <div class="row">
     <div class="col-sm-2">
       <p>Region</p>
     </div>
     <div class="col-sm-10">
-      {{region.region_name}}
+      {{country.location.region.region_name}}
     </div>
   </div>
 {% endif %}
 
 
 
-{% if sub_region.sub_region_name %}
+{% if country.location.sub_region.sub_region_name %}
   <div class="row">
     <div class="col-sm-2">
       <p> Subregion</p>
     </div>
     <div class="col-sm-10">
-      {{sub_region.sub_region_names}}
+      {{country.location.sub_region.sub_region_name}}
     </div>
   </div>
 {% endif %}
 
 
-{% if intermediate_region.intermediate_region_name %}
+{% if country.location.intermediate_region.intermediate_region_name %}
   <div class="row">
     <div class="col-sm-2">
       <p> Intermediate Region</p>
     </div>
     <div class="col-sm-10">
-      {{intermediate_region.intermediate_region_name}}
+      {{country.location.intermediate_region.intermediate_region_name}}
     </div>
   </div>
 {% endif %}
 
 
-{% if dev_status.dev_status_name %}
+{% if country.dev_status.dev_status_name %}
   <div class="row">
     <div class="col-sm-2">
       <p> Dev Status</p>
     </div>
     <div class="col-sm-10">
-      {{dev_status.dev_status_name}}
+      {{country.dev_status.dev_status_name}}
     </div>
   </div>
 {% endif %}
+  
+  {% else %}
+    <a href="{% url 'login' %}">Log in</a>
+  {% endif %}
 {% endblock content %}}

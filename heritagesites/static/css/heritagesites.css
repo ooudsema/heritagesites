@@ -68,9 +68,10 @@ main {
     background-color: transparent;
 }
 
+/* example: comment out padding */
 .container-fluid {
     background-color: transparent;
-    padding: 0.5rem 0.5rem;
+    /* padding: 0.5rem 0.5rem; */
 }
 
 /*
