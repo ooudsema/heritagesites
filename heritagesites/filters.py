@@ -26,23 +26,23 @@ class HeritageSiteFilter(django_filters.FilterSet):
 	)
 
 	region = django_filters.ModelChoiceFilter(
-		field_name='heritagesitejurisdiction__location__region_region_name',
+		field_name='heritagesitejurisdiction__country_area__location__region',
 		label='Region',
-		queryset=HeritageSite.objects.all().order_by('heritagesitejurisdiction__location__region_region_name'),
+		queryset=Region.objects.all().order_by('region_name'),
 		lookup_expr='exact'
 	)
 
 	sub_region = django_filters.ModelChoiceFilter(
-		field_name='location__sub_region',
+		field_name='heritagesitejurisdiction__country_area__location__sub_region',
 		label='Sub Region',
-		queryset=CountryArea.objects.order_by('heritagesitejurisdiction__location__sub_region_sub_region_name'),
+		queryset=SubRegion.objects.all().order_by('sub_region_name'),
 		lookup_expr='exact'
 	)
 
 	intermediate_region = django_filters.ModelChoiceFilter(
-		field_name='heritagesitejurisdiction__location__intermediate_region_intermediate_region_name',
+		field_name='heritagesitejurisdiction__country_area__location__intermediate_region',
 		label='Intermediate Region',
-		queryset=HeritageSite.objects.all().select_related('heritage_site_category').order_by('heritagesitejurisdiction__location__intermediate_region_intermediate_region_name'),
+		queryset=IntermediateRegion.objects.all().order_by('intermediate_region_name'),
 		lookup_expr='exact'
 	)
 
