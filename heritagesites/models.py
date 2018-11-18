@@ -108,6 +108,68 @@ class HeritageSite(models.Model):
         # return reverse('site_detail', args=[str(self.id)])
         return reverse('site_detail', kwargs={'pk': self.pk})
 
+    @property
+    def country_area_names(self):
+        countries = self.country_area.select_related('location').order_by('location__country_area_country_area_name')
+
+        names = []
+        for country in countries:
+            name = country.country_area_name
+            if name is None:
+                continue
+            iso_code = country.iso_alpha3_code
+
+            name_and_code = ''.join([name, ' (', iso_code, ')'])
+            if name_and_code not in names:
+                names.append(name_and_code)
+
+        return ', '.join(names)
+
+    @property
+    def region_names(self):
+        regions = self.country_area.select_related('location').order_by('location__region_region_name')
+
+        names = []
+        for region in regions:
+            name = region.location.region.region_name
+            if name is None:
+                continue
+            if name not in names:
+                names.append(name)
+
+        return ', '.join(names)
+
+    @property
+    def sub_region_names(self):
+        subregions = self.country_area.select_related('location').order_by('location__sub_region_sub_region_name')
+
+        names = []
+        for subregion in subregions:
+            name = subregion.location.sub_region.sub_region_name
+            if name is None:
+                continue
+            if name not in names:
+                names.append(name)
+
+        return ', '.join(names)
+
+    @property
+    def intermediate_region_names(self):
+        intregions = self.country_area.select_related('location').order_by('location__intermediate_region_intermediate_region_name')
+
+        names = []
+        for intregion in intregions:
+            if intregion is None:
+                continue
+            try:
+                name = intregion.location.intermediate_region.intermediate_region_name
+            except:
+                continue
+            if name not in names:
+                names.append(name)
+
+        return ', '.join(names)
+
 
 '''
 class HeritageSite(models.Model):

@@ -6,6 +6,8 @@ from django.utils.decorators import method_decorator
 from django import forms
 from heritagesites.forms import HeritageSiteForm
 from django.urls import reverse, reverse_lazy
+from django_filters.views import FilterView
+from heritagesites.filters import HeritageSiteFilter
 
 from .models import HeritageSite, CountryArea, HeritageSiteJurisdiction
 
@@ -164,3 +166,7 @@ class SiteDeleteView(generic.DeleteView):
 		self.object.delete()
 
 		return HttpResponseRedirect(self.get_success_url())
+
+class SiteFilterView(FilterView):
+	filterset_class = HeritageSiteFilter
+	template_name = 'heritagesites/site_filter.html'
